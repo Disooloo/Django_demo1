@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Погода{% endblock %}
+
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-5">
+            <h1>Погода в вашем городе</h1>
+            <form method="post">
+                {% csrf_token %}
+                <label for="sity"> Город</label>
+                {{ form.name }}
+                <input type="submit" value="Узнать" name="send" class="mt-2 btn btn-success">
+            </form>
+        </div>
+
+        <div class="col-5 offset-2">
+            <h1>Информация</h1>
+
+            {% for info in all_info %}
+                <div class="alert alert-info">
+                    <div class="row">
+                        <div class="col-9">
+                            <b>Город: {{ info.city }}</b> <br>
+                            <b>Температура : {{ info.temp }}</b> <sub>o</sub> <br>
+                        </div>
+                        <div class="col-2 offset-1">
+                            <img src="http://openweathermap.org/img/w/{{ info.icon }}.png">
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+{% endblock %}
